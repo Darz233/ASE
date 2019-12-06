@@ -1,0 +1,66 @@
+ package observer;
+ import java.util.*;
+ public class ObserverPattern
+ {
+     public static void main(String[] args)
+     {
+         Subject subject=new ConcreteSubject();
+         Observer obs1=new ConcreteObserver1();
+         Observer obs2=new ConcreteObserver2();
+        subject.add(obs1);
+        subject.add(obs2);
+        subject.notifyObserver();
+    }
+}
+//抽象公众号
+abstract class GZH
+{
+    protected List<YH> yhs=new ArrayList<YH>();   
+    //增加用户方法
+    public void add(YH yh)
+    {
+        yhs.add(yh);
+    }    
+    //删除用户方法
+    public void remove(YH yh)
+    {
+        yhs.remove(yh);
+    }   
+    public abstract void notifyYH(); //通知用户方法
+}
+//具体公众号
+class gzh extends GZH
+{
+    public void notifyYH()
+    {
+        System.out.println("推送一条消息...");
+        System.out.println("--------------");       
+       
+        for(Object obs:yhs)
+        {
+            ((YH)obs).response();
+        }
+       
+    }          
+}
+//抽象用户
+interface YH
+{
+    void response(); //反应
+}
+//具体用户1
+class yh1 implements YH
+{
+    public void response()
+    {
+        System.out.println("用户1收到消息！");
+    }
+}
+//具体用户2
+class yh2 implements YH
+{
+    public void response()
+    {
+        System.out.println("用户二收到消息！");
+    }
+}
